@@ -95,7 +95,7 @@ public class AtividadeService {
         List<Atividade> atividadesFuncionario = repository.findDistinctInAtividadeEquipamentoByFuncionarioId(idFuncionario);
         for (Atividade atividade : atividadesFuncionario) {
             List<Equipamento> equipamentos = buscarPeloFuncionarioEAtividade(idFuncionario, atividade.getId());
-            if (equipamentos.isEmpty()) {
+            if (!equipamentos.isEmpty()) {
                 AtividadeEquipamentoDTO dto = new AtividadeEquipamentoDTO();
                 dto.setAtividade(mapper.toDto(atividade));
                 dto.setEquipamentos(equipamentoMapper.toDto(equipamentos));
