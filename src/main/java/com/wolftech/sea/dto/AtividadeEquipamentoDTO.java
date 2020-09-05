@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AtividadeEquipamentosDTO {
+public class AtividadeEquipamentoDTO {
 
     private AtividadeDTO atividade;
     private List<EquipamentoDTO> equipamentos = new ArrayList<>();

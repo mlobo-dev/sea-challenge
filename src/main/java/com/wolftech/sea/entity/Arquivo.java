@@ -22,7 +22,6 @@ public class Arquivo implements Serializable {
     @Column(name = "COD_ARQUIVO")
     private Long id;
 
-    @Lob
     @Column(name = "BASE64")
-    private Byte[] base64;
+    private byte[] base64;
 }

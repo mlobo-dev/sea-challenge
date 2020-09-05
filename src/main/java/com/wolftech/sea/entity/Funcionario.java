@@ -1,7 +1,7 @@
 package com.wolftech.sea.entity;
 
 import com.wolftech.sea.enums.SexoEnum;
-import com.wolftech.sea.enums.StatusEnum;
+import com.wolftech.sea.enums.StatusFuncionarioEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,14 +33,16 @@ public class Funcionario implements Serializable {
     @Column(name = "TX_RG")
     private String rg;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "TX_SEXO")
     private SexoEnum sexoEnum;
 
     @Column(name = "DT_NASCIMENTO")
     private LocalDate dataNascimento;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "TX_STATUS")
-    private StatusEnum status;
+    private StatusFuncionarioEnum status;
 
     @Column(name = "BOOL_UTILIZA_EPI")
     private Boolean utilizaEPI;

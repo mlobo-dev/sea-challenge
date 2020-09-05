@@ -11,5 +11,5 @@ public class ArquivoDTO {
 
     private Long id;
     @NotNull(message = "Base64 do arquivo é obrigatório")
-    private Byte[] base64;
+    private byte[] base64;
 }
