@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/equipamentos")
-@Api(tags = "Equipamentos", description = "Rotas para operações com Equipamentos")
+@Api(tags = "Equipamentos", description = "Rotas Sobre Equipamentos")
 public class EquipamentoController {
 
 
