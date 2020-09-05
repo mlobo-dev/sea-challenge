@@ -28,11 +28,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Louvor Sheknah API",
-                "Esta API é utilizada para controlar as requisições Do Desafio SEA",
+                "Sea Challenge",
+                "API do Desafio SEA",
                 "Versão 1.0",
                 "https://gitlab.com/mlobo.dev/sea",
-                new Contact("Márcio Lôbo ", "https://gitlab.com/mlobo.dev/sea", "mlobo.dev@gmail.com"),
+                new Contact("Márcio Lôbo ", "https://github.com/mlobo-dev/sea-challenge", "mlobo.dev@gmail.com"),
                 "OPEN COD",
                 "https://gitlab.com/mlobo.dev",
                 Collections.emptyList() // Vendor Extensions
