@@ -45,7 +45,7 @@ public class EquipamentoService {
         return repository.save(atualizarDados(buscarPorId(dto.getId()), mapper.toEntity(dto)));
     }
 
-    @Transactional
+
     private Equipamento atualizarDados(Equipamento objSalvo, Equipamento objAtualizacao) {
         objSalvo.setNome(objAtualizacao.getNome() != null ? objAtualizacao.getNome() : objSalvo.getNome());
         objSalvo.setNumeroCA(objAtualizacao.getNumeroCA() != null ? objAtualizacao.getNumeroCA() : objSalvo.getNumeroCA());

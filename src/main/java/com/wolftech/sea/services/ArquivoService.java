@@ -41,7 +41,7 @@ public class ArquivoService {
         return repository.save(atualizarDados(buscarPorId(dto.getId()), mapper.toEntity(dto)));
     }
 
-    @Transactional
+
     private Arquivo atualizarDados(Arquivo objSalvo, Arquivo objAtualizacao) {
         objSalvo.setBase64(objAtualizacao.getBase64() != null ? objAtualizacao.getBase64() : objSalvo.getBase64());
         return objSalvo;
