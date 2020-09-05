@@ -6,25 +6,27 @@ import com.wolftech.sea.exception.DataIntegrityException;
 import com.wolftech.sea.exception.ObjectNotFoundException;
 import com.wolftech.sea.mapper.ArquivoMapper;
 import com.wolftech.sea.repositories.ArquivoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ArquivoService {
 
-    @Autowired
-    private ArquivoRepository repository;
+    private final ArquivoRepository repository;
 
-    @Autowired
-    private ArquivoMapper mapper;
+    private final ArquivoMapper mapper;
 
+    @Transactional
     public Arquivo salvar(ArquivoDTO dto) {
         return repository.save(mapper.toEntity(dto));
     }
 
+    @Transactional(readOnly = true)
     public List<Arquivo> listarTudo() {
         return repository.findAll();
     }
@@ -39,6 +41,7 @@ public class ArquivoService {
         return repository.save(atualizarDados(buscarPorId(dto.getId()), mapper.toEntity(dto)));
     }
 
+    @Transactional
     private Arquivo atualizarDados(Arquivo objSalvo, Arquivo objAtualizacao) {
         objSalvo.setBase64(objAtualizacao.getBase64() != null ? objAtualizacao.getBase64() : objSalvo.getBase64());
         return objSalvo;

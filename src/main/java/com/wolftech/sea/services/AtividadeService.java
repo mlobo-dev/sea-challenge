@@ -14,8 +14,8 @@ import com.wolftech.sea.repositories.AtividadeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +28,8 @@ public class AtividadeService {
     private final EquipamentoMapper equipamentoMapper;
     private final AtividadeEquipamentoRepository atividadeEquipamentoRepository;
 
+
+    @Transactional
     public Atividade salvar(AtividadeDTO dto) {
         if (dto.getId() == null && repository.existsByNome(dto.getNome())) {
             throw new BusinessRuleException("Já existe um cargo com esse nome.");
@@ -35,6 +37,7 @@ public class AtividadeService {
         return repository.save(mapper.toEntity(dto));
     }
 
+    @Transactional(readOnly = true)
     public List<Atividade> listarTudo() {
         return repository.findAll();
     }
@@ -45,6 +48,7 @@ public class AtividadeService {
         );
     }
 
+    @Transactional
     public Atividade editar(AtividadeDTO dto) {
         return repository.save(atualizarDados(buscarPorId(dto.getId()), mapper.toEntity(dto)));
     }
@@ -64,6 +68,7 @@ public class AtividadeService {
     }
 
 
+    @Transactional
     public List<AtividadeEquipamentoDTO> salvarRelacaoFuncionarioAtividades(List<AtividadeEquipamentoDTO> atividades, Funcionario funcionario) {
 
         for (AtividadeEquipamentoDTO dto : atividades) {
@@ -84,12 +89,13 @@ public class AtividadeService {
         return recuperarAtividadesEEquipamentosDoFuncionario(funcionario.getId());
     }
 
+
     public List<AtividadeEquipamentoDTO> recuperarAtividadesEEquipamentosDoFuncionario(Long idFuncionario) {
         List<AtividadeEquipamentoDTO> atividaEquipamentosDTO = new ArrayList<>();
         List<Atividade> atividadesFuncionario = repository.findDistinctInAtividadeEquipamentoByFuncionarioId(idFuncionario);
         for (Atividade atividade : atividadesFuncionario) {
             List<Equipamento> equipamentos = buscarPeloFuncionarioEAtividade(idFuncionario, atividade.getId());
-            if (equipamentos.size() > 0) {
+            if (equipamentos.isEmpty()) {
                 AtividadeEquipamentoDTO dto = new AtividadeEquipamentoDTO();
                 dto.setAtividade(mapper.toDto(atividade));
                 dto.setEquipamentos(equipamentoMapper.toDto(equipamentos));

@@ -10,6 +10,7 @@ import com.wolftech.sea.repositories.EquipamentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class EquipamentoService {
     private final EquipamentoRepository repository;
     private final EquipamentoMapper mapper;
 
+    @Transactional
     public Equipamento salvar(EquipamentoDTO dto) {
         if (repository.existsByNumeroCA(dto.getNumeroCA())) {
             throw new BusinessRuleException("Não é possível cadastrar um EPI com o mesmo número de Certificado");
@@ -28,6 +30,7 @@ public class EquipamentoService {
         return repository.save(mapper.toEntity(dto));
     }
 
+    @Transactional(readOnly = true)
     public List<Equipamento> listarTudo() {
         return repository.findAll();
     }
@@ -42,6 +45,7 @@ public class EquipamentoService {
         return repository.save(atualizarDados(buscarPorId(dto.getId()), mapper.toEntity(dto)));
     }
 
+    @Transactional
     private Equipamento atualizarDados(Equipamento objSalvo, Equipamento objAtualizacao) {
         objSalvo.setNome(objAtualizacao.getNome() != null ? objAtualizacao.getNome() : objSalvo.getNome());
         objSalvo.setNumeroCA(objAtualizacao.getNumeroCA() != null ? objAtualizacao.getNumeroCA() : objSalvo.getNumeroCA());

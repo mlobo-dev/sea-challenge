@@ -10,6 +10,7 @@ import com.wolftech.sea.repositories.CargoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class CargoService {
     private final CargoRepository repository;
     private final CargoMapper mapper;
 
+    @Transactional
     public Cargo salvar(CargoDTO dto) {
         if (dto.getId() == null && repository.existsByNome(dto.getNome())) {
             throw new BusinessRuleException("Já existe um cargo com esse nome.");
@@ -28,6 +30,7 @@ public class CargoService {
         return repository.save(mapper.toEntity(dto));
     }
 
+    @Transactional(readOnly = true)
     public List<Cargo> listarTudo() {
         return repository.findAll();
     }
@@ -38,6 +41,7 @@ public class CargoService {
         );
     }
 
+    @Transactional
     public Cargo editar(CargoDTO dto) {
         return repository.save(atualizarDados(buscarPorId(dto.getId()), mapper.toEntity(dto)));
     }
@@ -46,6 +50,7 @@ public class CargoService {
         objSalvo.setNome(objAtualizacao.getNome() != null ? objAtualizacao.getNome() : objSalvo.getNome());
         return objSalvo;
     }
+
 
     public void deletarCargo(Long id) {
         buscarPorId(id);

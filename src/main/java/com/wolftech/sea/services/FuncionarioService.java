@@ -14,8 +14,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,6 +38,7 @@ public class FuncionarioService {
         return funcionarioSalvo;
     }
 
+    @Transactional(readOnly = true)
     public List<Funcionario> listarTudo() {
         return repository.findAll();
     }
@@ -49,11 +50,12 @@ public class FuncionarioService {
                 .withIgnoreCase()
                 .withIgnoreNullValues();
 
-        Example example = Example.of(funcionario, matcher);
+        Example<Funcionario> example = Example.of(funcionario, matcher);
         return repository.findAll(example);
 
     }
 
+    @Transactional(readOnly = true)
     public List<Funcionario> listarTudoPeloStatus(String status) {
 
         try {
@@ -77,6 +79,7 @@ public class FuncionarioService {
         return dto;
     }
 
+    @Transactional
     public FuncionarioDTO editar(FuncionarioDTO dto) {
         return salvar(atualizarDados(mapper.toDto(buscarPorId(dto.getId())), dto));
     }
@@ -94,6 +97,7 @@ public class FuncionarioService {
         return objSalvo;
     }
 
+    @Transactional
     public void deletarFuncionario(Long id) {
         buscarPorId(id);
         try {
