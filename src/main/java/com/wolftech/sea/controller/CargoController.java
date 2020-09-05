@@ -43,7 +43,7 @@ public class CargoController {
 
     @PutMapping
     @ApiOperation("Edita o Cargo")
-    public ResponseEntity<CargoDTO> editar(CargoDTO dto) {
+    public ResponseEntity<CargoDTO> editar(@RequestBody CargoDTO dto) {
         return new ResponseEntity(service.editar(dto), HttpStatus.OK);
     }
 
