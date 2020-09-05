@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/arquivos")
-@Api(tags = "Arquivos", description = "Rotas para operações com Arquivos")
+@Api(tags = "Arquivos", description = "Rotas sobre Arquivos")
 public class ArquivoController {
 
 
@@ -23,19 +23,19 @@ public class ArquivoController {
     private final ArquivoMapper mapper;
 
     @GetMapping
-    @ApiOperation("Lista todos os Usuários ")
+    @ApiOperation("Lista todos os Arquivos")
     public ResponseEntity<List<ArquivoDTO>> listarTudo() {
         return ResponseEntity.ok(mapper.toDto(service.listarTudo()));
     }
 
     @GetMapping("/{id}")
-    @ApiOperation("Busca o usuário pelo id")
+    @ApiOperation("Busca o arquivo pelo id")
     public ResponseEntity<ArquivoDTO> buscarPorId(@PathVariable("id") Long id) {
         return ResponseEntity.ok(mapper.toDto(service.buscarPorId(id)));
     }
 
     @PostMapping
-    @ApiOperation("Salva um novo usuário ")
+    @ApiOperation("Salva um novo arquivo ")
     public ResponseEntity<ArquivoDTO> salvar(@RequestBody ArquivoDTO dto) {
         return ResponseEntity.ok(mapper.toDto(service.salvar(dto)));
     }

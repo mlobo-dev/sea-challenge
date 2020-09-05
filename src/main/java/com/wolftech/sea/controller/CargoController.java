@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/cargos")
-@Api(tags = "Cargos", description = "Rotas para operações sobre Cargos")
+@Api(tags = "Cargos", description = "Rotas Sobre Cargos")
 public class CargoController {
 
 

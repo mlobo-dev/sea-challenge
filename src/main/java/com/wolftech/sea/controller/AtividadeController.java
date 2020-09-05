@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/atividades")
-@Api(tags = "Atividades", description = "Rotas para operações com Atividades")
+@Api(tags = "Atividades", description = "Rotas sobre Atividades")
 public class AtividadeController {
 
 
@@ -23,31 +23,31 @@ public class AtividadeController {
     private final AtividadeMapper mapper;
 
     @GetMapping
-    @ApiOperation("Lista todos os Usuários ")
+    @ApiOperation("Lista todas as Atividades ")
     public ResponseEntity<List<AtividadeDTO>> listarTudo() {
         return ResponseEntity.ok(mapper.toDto(service.listarTudo()));
     }
 
     @GetMapping("/{id}")
-    @ApiOperation("Busca o usuário pelo id")
+    @ApiOperation("Busca a Atividade pelo id")
     public ResponseEntity<AtividadeDTO> buscarPorId(@PathVariable("id") Long id) {
         return ResponseEntity.ok(mapper.toDto(service.buscarPorId(id)));
     }
 
     @PostMapping
-    @ApiOperation("Salva um novo usuário ")
+    @ApiOperation("Cria uma nova Atividade ")
     public ResponseEntity<AtividadeDTO> salvar(@RequestBody AtividadeDTO dto) {
         return ResponseEntity.ok(mapper.toDto(service.salvar(dto)));
     }
 
     @PutMapping
-    @ApiOperation("Edita o usuário")
+    @ApiOperation("Edita a Atividade")
     public ResponseEntity<AtividadeDTO> editar(@RequestBody AtividadeDTO dto) {
         return new ResponseEntity(mapper.toDto(service.editar(dto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation("Deleta  o usuário pelo id")
+    @ApiOperation("Deleta  a Atividade pelo id")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
         service.deletarAtividade(id);
         return ResponseEntity.noContent().build();
